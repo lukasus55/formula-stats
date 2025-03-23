@@ -1,5 +1,5 @@
 {
-  "homepage": "https://lukasus55.github.io/f1-stats/",
+  "homepage": "https://lukasus55.github.io/formula-stats/",
   "name": "es-f1",
   "private": true,
   "version": "0.1.0",
@@ -16,12 +16,11 @@
     "axios": "^1.8.2",
     "chart.js": "^4.4.8",
     "flag-icons": "^7.3.2",
-    "gh-pages": "^6.3.0",
     "i18n-nationality": "^1.4.0",
     "lucide-react": "^0.479.0",
-    "react": "^19.0.0",
+    "react": "^18.3.1",
     "react-chartjs-2": "^5.3.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^7.3.0",
     "swr": "^2.3.3"
@@ -34,6 +33,7 @@
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
+    "gh-pages": "^6.3.0",
     "globals": "^15.15.0",
     "vite": "^6.2.0"
   }
