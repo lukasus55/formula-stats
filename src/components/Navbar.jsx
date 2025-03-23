@@ -25,7 +25,7 @@ function Navbar() {
       <nav className="navbar-container">
 
         <div className="navbar-logo">
-          <Link to="/"> <img src="/esf1logo.png" width="48px" height="60px"></img> </Link>
+          <Link to="/"> <img src="./esf1logo.png" width="48px" height="60px"></img> </Link>
         </div>
 
         <NavbarList />
