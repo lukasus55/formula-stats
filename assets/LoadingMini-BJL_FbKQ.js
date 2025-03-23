@@ -1,1 +1,0 @@
-import{j as s}from"./index-BY3Sf5ow.js";function d(){return s.jsx("div",{className:"loading-mini",children:s.jsxs("div",{className:"three-body",children:[s.jsx("div",{className:"three-body__dot"}),s.jsx("div",{className:"three-body__dot"}),s.jsx("div",{className:"three-body__dot"})]})})}export{d as L};
