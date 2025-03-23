@@ -24,7 +24,7 @@ function NavBarMobile() {
 
       <div className="navbar-logo">
         <Link to="/">
-          <img src="/esf1logo.png" />
+          <img src="./esf1logo.png" />
         </Link>
       </div>
 
