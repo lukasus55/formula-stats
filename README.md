@@ -1,7 +1,7 @@
 
 # Advanced F1 Stats Websitre
 
-TODO
+##  !!! WEBSITE IS STILL UNDER CONSTRUCTION !!!
 
 ##  Packages Adjustments
 - [i18n-nationality](https://github.com/sourcecode911/i18n-nationality) - adjustments in en.json made in order to match the api nationalities:
