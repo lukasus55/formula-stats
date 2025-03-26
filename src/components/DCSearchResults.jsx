@@ -17,7 +17,7 @@ function DCSearchResults({ query, searchType }) {
     const words = filteredQuery.split("_");
     const [filteredResults, setfilteredResults] = useState([]);
     const [visibleCount, setVisibleCount] = useState(25);
-    const [loadingMore, setLoadingMore] = useState(false);
+    const [areAllLoaded, setAreAllLoaded] = useState(false);
 
     function filterDrivers(drivers)
     {
@@ -46,44 +46,51 @@ function DCSearchResults({ query, searchType }) {
     const [offset, setOffset] = useState(0);
     const [drivers, setDrivers] = useState([]);
 
-    const { data, error, isLoading } = useSWR(
+    const { data, error, isLoading, isValidating } = useSWR(
         `https://api.jolpi.ca/ergast/f1/${searchType}/?offset=${offset}&limit=100`,
         fetcher,
     );
     
     // function to process and store results
-    useEffect(() => {
-        if (data) {
-            setLoadingMore(true);
+useEffect(() => {
+    if (data) {
+        if (isValidating) {
+            // Apply delay only if data was fetched from network
+            setAreAllLoaded(false);
             setTimeout(() => {
-                if(data.MRData.DriverTable.Drivers.length > 0) {
-
-                    const newDrivers = data.MRData.DriverTable.Drivers.map(driver => ({
-                        id: driver.driverId,
-                        givenName: driver.givenName,
-                        familyName: driver.familyName,
-                        // countryCode: driver.nationality
-                        countryCode: nationalities.getAlpha2Code(driver.nationality, 'en') || "99" // "99" is blank flag.
-
-                    }))
-
-                    setDrivers(prevDrivers => [...prevDrivers, ...newDrivers]);
-
-                    // load next 100 results
-                    setOffset(prevOffset => prevOffset + 100);
-                }
-                else //when process is fnished
-                {
-                    setfilteredResults(filterDrivers(drivers));
-                    setLoadingMore(false); 
-                }
-
-            }, 251); // 0,251-second delay before fetching the next batch to avoid 4 fetches per second limit
+                processFetchedData();
+            }, 251);
+        } else {
+            // If data is from cache, process instantly
+            processFetchedData();
         }
-    }, [data, filteredQuery]);
+    }
+}, [data, filteredQuery]);
+
+    function processFetchedData() {
+        if(data.MRData.DriverTable.Drivers.length > 0) {
+
+            const newDrivers = data.MRData.DriverTable.Drivers.map(driver => ({
+                id: driver.driverId,
+                givenName: driver.givenName,
+                familyName: driver.familyName,
+                // countryCode: driver.nationality
+                countryCode: nationalities.getAlpha2Code(driver.nationality, 'en') || "99" // "99" is blank flag.
+
+            }))
+
+            setDrivers(prevDrivers => [...prevDrivers, ...newDrivers]);
+            setOffset(prevOffset => prevOffset + 100);
+        }
+        else //when process is fnished
+        {
+            setAreAllLoaded(true);
+        }
+        setfilteredResults(filterDrivers(drivers));
+    }
 
     if (error) return <div className="dcsearch-loading-error">Failed to load.</div>
-    if ((isLoading && drivers.length === 0) || loadingMore) return <div className="dcsearch-loading"><LoadingMini /></div>
+    if (!areAllLoaded) return <div className="dcsearch-loading"><LoadingMini /></div>
 
     const viewMore = () => {
         setVisibleCount(prev => prev + 25); // Load 25 more results each time
@@ -91,7 +98,9 @@ function DCSearchResults({ query, searchType }) {
 
     return(
         <>
-            <div className="dcsearch-results-title"> {filteredResults.length} {filteredResults.length==1 ? "result" : "results"} for "{query.replace("_", " ")}" </div>
+            <div className="dcsearch-results-title"> 
+                {filteredResults.length} {filteredResults.length === 1 ? "result" : "results"} for {query.replace("_", " ")}
+            </div>
             <div className="dcsearch-results-box">
                 {filteredResults.slice(0, visibleCount).map(driver => (
                     <div key={driver.id} className="dcsearch-results-single-result"> 

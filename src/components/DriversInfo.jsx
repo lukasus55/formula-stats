@@ -9,6 +9,7 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { Crown } from 'lucide-react';
 import { Link } from "react-router-dom";
 import DCGraph from "./DCGraph";
+import { Helmet } from "react-helmet-async";
 nationalities.registerLocale(enLocale);
 
 function DriversInfo( {driverId} ) {
@@ -46,6 +47,7 @@ function DriversInfo( {driverId} ) {
     const [GridList, setGridList] = useState([]);
     const [SprintPositionsList, setSprintPositionsList] = useState([]);
     const [TeamsList, setTeamsList] = useState([]);
+    const [areAllRaceLoaded, setAllRaceLoaded] = useState(false);
   
     const { data : raceData, error: raceError, isLoading: isRaceLoading } = useSWR(
       `https://api.jolpi.ca/ergast/f1/drivers/${driverId}/results/?offset=${offsetResults}&limit=100`,
@@ -156,8 +158,8 @@ function DriversInfo( {driverId} ) {
               wikipedia: lastRace.url,
             },
           }));
+          setAllRaceLoaded(true)
         }
-  
         setOffsetResults(prevOffset => prevOffset + 100);
       }
     }, [raceData])
@@ -206,7 +208,8 @@ function DriversInfo( {driverId} ) {
 
     if (raceError || championshipError || sprintError)
       return <div className="drivers-info-loading-error">Failed to load.</div>;
-    if (isRaceLoading || isChampionshipLoading || isSprintLoading)
+    // With this sollution it is possible to page be displayed when all sprints and/or championships arent yet loaded but thats not an issue.
+    if (isRaceLoading || isChampionshipLoading || isSprintLoading || !areAllRaceLoaded)
       return <div className="drivers-info-loading"><LoadingMini /></div>;
 
     const totalFinishedRaces = driver.totalRaces - (driver.racePositionsList[NaN] || 0);
@@ -232,6 +235,11 @@ function DriversInfo( {driverId} ) {
       <>
         {(driver && driver.givenName) ? (
         <div className="drivers-info-container">
+          
+          <Helmet>
+            <title>{`F1 Statistics - ${driver.givenName} ${driver.familyName}`}</title>
+            <meta name="description" content={`F1 Stats - ${driver.givenName} ${driver.familyName}`} />
+          </Helmet>
 
           <div className="title"> <span className={`fi fi-${driver.countryCode ? (driver.countryCode.toLowerCase()) : ("99")} dcsearch-results-flag`}></span>&nbsp;{driver.givenName} {driver.familyName} </div>
           
