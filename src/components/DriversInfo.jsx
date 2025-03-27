@@ -147,7 +147,7 @@ function DriversInfo( {driverId} ) {
 
         // Last race datas
         const currentBatchCount = raceData.MRData.RaceTable.Races.length;
-        if (offsetResults + currentBatchCount >= totalRaces) {
+        if (offsetResults + 100 >= totalRaces) {
           const lastRace = raceData.MRData.RaceTable.Races[currentBatchCount - 1];
           setDriver((prev) => ({
             ...prev,
@@ -229,7 +229,6 @@ function DriversInfo( {driverId} ) {
     });
 
     const mergedTeamsArray = Array.from(mergedTeams.values())
-    console.log(driver) 
 
     return(
       <>
@@ -285,7 +284,7 @@ function DriversInfo( {driverId} ) {
                 <li> <span className="drivers-bold"> {driver.totalSprintPoints} </span>&nbsp;sprint points </li>
                 <li> </li>
                 <li> Avg. race position:&nbsp;<span className="drivers-bold">{(parseFloat(driver.totalRacePositions)/totalFinishedRaces).toFixed(2)}</span></li>
-                <li> Avg. sprint position:&nbsp;<span className="drivers-bold">{(parseFloat(driver.totalSprintPositions)/totalFinishedSprints).toFixed(2)}</span></li>
+                <li> Avg. sprint position:&nbsp;<span className="drivers-bold">{driver.totalSprintPositions==0 ? `-` : (parseFloat(driver.totalSprintPositions)/totalFinishedSprints).toFixed(2)}</span></li>
               </ul>
             </div>
           </div>
