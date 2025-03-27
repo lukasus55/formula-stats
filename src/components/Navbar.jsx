@@ -1,38 +1,27 @@
 import { Link } from "react-router-dom";
 import './Navbar.css';
 import NavbarList from "./NavbarList";
-import { lazy } from 'react';
-const NavBarMobile = lazy(() => import('./NavBarMobile'));
+import NavBarMobile from './NavBarMobile';
 import { windowSizeDefiner } from "./Helpers";
 
 function Navbar() {
 
-  let windowSize = windowSizeDefiner();
+  const windowSize = windowSizeDefiner();
 
-  if (windowSize.width<=992)
-  {
-    return (
-      <nav className="navbar-container">
+  return (
+    <nav className="navbar-container">
+      {(windowSize.width<=992 ? 
+        <NavBarMobile /> :
+        <>
+          <div className="navbar-logo">
+            <Link to="/"> <img src="./esf1logo.png" width="48px" height="60px"></img> </Link>
+          </div>
+          <NavbarList />
+        </>
+      )}
+  </nav>
+  );
 
-        <NavBarMobile />
-
-      </nav>
-    );
-  }
-  else
-  {
-    return (
-      <nav className="navbar-container">
-
-        <div className="navbar-logo">
-          <Link to="/"> <img src="./esf1logo.png" width="48px" height="60px"></img> </Link>
-        </div>
-
-        <NavbarList />
-
-      </nav>
-    );
-  }
 
 };
 

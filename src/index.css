@@ -1,44 +1,42 @@
 @import url('https://fonts.googleapis.com/css?family=Inter:700|Lexend:400'); /* Install this font locally*/
 
-@media (prefers-color-scheme: light) 
-{
-  :root {
-    --text: #000000;
-    --background: #ebebeb;
-    --primary: #7f31d8;
-    --secondary: #0e0024;
-    --accent: #4400c2;
-    --widget-background: #dddddd;
-    --widget-primary: #7f31d8;
-    --widget-accent: #813dff;
-    --widget-light-gray: #666666;
-    --widget-gray: #353535;
-    --widget-dark-gray: #141416;
-    --widget-text: #000000;
-    --widget-secondary-background: #d1d1d1;
-    --widget-secondary-text: #2b2b2b;
-    --widget-secondary: #dbdbdb;
-  }
+
+:root.light {
+  --text: #000000;
+  --background: #ebebeb;
+  --primary: #7f31d8;
+  --secondary: #451877;
+  --accent: #4400c2;
+  --light-gray: #d8d8d8;
+  --widget-background: #dddddd;
+  --widget-primary: #7f31d8;
+  --widget-accent: #813dff;
+  --widget-light-gray: #666666;
+  --widget-gray: #797979;
+  --widget-dark-gray: #141416;
+  --widget-text: #000000;
+  --widget-secondary-background: #d1d1d1;
+  --widget-secondary-text: #2b2b2b;
+  --widget-secondary: #dbdbdb;
 }
-@media (prefers-color-scheme: dark) 
-{
-  :root {
-    --text: #ffffff;
-    --background: #141414;
-    --primary: #7527ce;
-    --secondary: #c19aff;
-    --accent: #813dff;
-    --widget-accent: #813dff;
-    --widget-background: #1e1e21;
-    --widget-primary: #7f31d8;
-    --widget-light-gray: #b9b9b9;
-    --widget-gray: #777777;
-    --widget-dark-gray: #2e2e32;
-    --widget-text: #ffffff;
-    --widget-secondary-background: #141416;
-    --widget-secondary-text: #dbdbdb;
-    --widget-secondary: #777777;
-  }
+
+:root.dark {
+  --text: #ffffff;
+  --background: #141414;
+  --primary: #7527ce;
+  --secondary: #c19aff;
+  --accent: #813dff;
+  --light-gray: #d8d8d8;
+  --widget-accent: #813dff;
+  --widget-background: #1e1e21;
+  --widget-primary: #7f31d8;
+  --widget-light-gray: #b9b9b9;
+  --widget-gray: #777777;
+  --widget-dark-gray: #2e2e32;
+  --widget-text: #ffffff;
+  --widget-secondary-background: #141416;
+  --widget-secondary-text: #dbdbdb;
+  --widget-secondary: #777777;
 }
 
 *

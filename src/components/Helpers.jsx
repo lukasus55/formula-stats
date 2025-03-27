@@ -23,6 +23,9 @@ function windowSizeDefiner(){
     return windowSize
 }
 
+
+const isMobileDevice = () => windowSizeDefiner() <= 768;
+
 const fetcher = url => axios.get(url).then(res => res.data);
 
 function useToggleState(initialState = false)
@@ -45,4 +48,4 @@ function isEmpty(obj) {
   return true;
 }
 
-export { windowSizeDefiner, fetcher, useToggleState, isEmpty};
+export { windowSizeDefiner, isMobileDevice, fetcher, useToggleState, isEmpty};
