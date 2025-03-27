@@ -207,6 +207,7 @@ function DriversInfo( {driverId} ) {
   
     const [graphMode, setGraphMode] = useState("Races");
 
+    if (!isRaceLoading && !isChampionshipLoading && !isSprintLoading && raceData && raceData.MRData.total === "0") return <div className="laoding-error"> This driver has not attended any race. </div>
     if (raceError || championshipError || sprintError) return <LoadingError />
     // With this sollution it is possible to page be displayed when all sprints and/or championships arent yet loaded but thats not an issue.
     if (isRaceLoading || isChampionshipLoading || isSprintLoading || !areAllRaceLoaded)

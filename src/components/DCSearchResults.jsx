@@ -47,7 +47,7 @@ function DCSearchResults({ query, searchType }) {
     const [offset, setOffset] = useState(0);
     const [drivers, setDrivers] = useState([]);
 
-    const { data, error, isLoading, isValidating } = useSWR(
+    const { data, error, isLoading} = useSWR(
         `https://api.jolpi.ca/ergast/f1/${searchType}/?offset=${offset}&limit=100`,
         fetcher,
     );
@@ -55,7 +55,7 @@ function DCSearchResults({ query, searchType }) {
     // function to process and store results
 useEffect(() => {
     if (data) {
-        if (isValidating) {
+        if (isLoading) {
             // Apply delay only if data was fetched from network
             setAreAllLoaded(false);
             setTimeout(() => {
