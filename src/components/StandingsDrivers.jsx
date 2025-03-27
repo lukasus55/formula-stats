@@ -25,7 +25,11 @@ function StandingsDrivers({results}) {
                 {(isSmallDevice) ? (`${driver.Driver.givenName[0]}.`) : (driver.Driver.givenName)}&nbsp;<span className="standings-drivers-list-driver-familyName">{driver.Driver.familyName}</span>
               </Link>
             </td>
-            <td className="standings-drivers-list-constructor">{driver.Constructors[0].name}</td>
+            <td className="standings-drivers-list-constructor">
+              <Link to={`/constructor?id=${driver.Constructors[0].constructorId}`}>
+                {driver.Constructors[0].name}
+              </Link>
+            </td>
             <td className="standings-drivers-list-points">{driver.points}</td>
           </tr>
         ))}

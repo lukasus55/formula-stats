@@ -74,7 +74,7 @@ function Standings () {
                                     </div>
                                 </div>
                                 <div className="standings-table-dropdown-box"  onClick={toggleDropdownExtended}>
-                                    {dropdownExtended && <StandingsDropdown />}
+                                    {dropdownExtended && <StandingsDropdown selectedSeason={season}/>}
                                 </div>
                             </div>
                         </div>
