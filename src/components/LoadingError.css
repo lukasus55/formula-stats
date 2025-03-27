@@ -1,0 +1,45 @@
+.laoding-error
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.laoding-error-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 20px;
+}
+
+.laoding-error-text
+{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.laoding-error-button
+{
+    width: 95px;
+    height: 30px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25pt;
+    background-color: var(--widget-primary);
+    cursor: pointer;
+    opacity: 80%;
+    color: #ffffff;
+}
+
+.laoding-error-button:hover
+{
+    opacity: 100%;
+}

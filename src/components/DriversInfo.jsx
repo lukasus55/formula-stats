@@ -10,6 +10,7 @@ import { Crown } from 'lucide-react';
 import { Link } from "react-router-dom";
 import DCGraph from "./DCGraph";
 import { Helmet } from "react-helmet-async";
+import LoadingError from "./LoadingError";
 nationalities.registerLocale(enLocale);
 
 function DriversInfo( {driverId} ) {
@@ -206,8 +207,7 @@ function DriversInfo( {driverId} ) {
   
     const [graphMode, setGraphMode] = useState("Races");
 
-    if (raceError || championshipError || sprintError)
-      return <div className="drivers-info-loading-error">Failed to load.</div>;
+    if (raceError || championshipError || sprintError) return <LoadingError />
     // With this sollution it is possible to page be displayed when all sprints and/or championships arent yet loaded but thats not an issue.
     if (isRaceLoading || isChampionshipLoading || isSprintLoading || !areAllRaceLoaded)
       return <div className="drivers-info-loading"><LoadingMini /></div>;

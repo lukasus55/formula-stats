@@ -16,7 +16,7 @@
 }
 
 
-.drivers-info-loading, .drivers-info-loading-error
+.drivers-info-loading
 {
     display: flex;
     justify-content: center;

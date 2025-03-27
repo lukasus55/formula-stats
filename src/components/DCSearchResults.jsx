@@ -8,6 +8,7 @@ nationalities.registerLocale(enLocale);
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import LoadingMini from '../pages/LoadingMini';
 import { Link } from "react-router-dom";
+import LoadingError from "./LoadingError";
 
 // All variable are called driver, prevDrivers but DCSearchResults is for both drivers and constructors searching.
 
@@ -89,7 +90,7 @@ useEffect(() => {
         setfilteredResults(filterDrivers(drivers));
     }
 
-    if (error) return <div className="dcsearch-loading-error">Failed to load.</div>
+    if (error) return <LoadingError></LoadingError>
     if (!areAllLoaded) return <div className="dcsearch-loading"><LoadingMini /></div>
 
     const viewMore = () => {

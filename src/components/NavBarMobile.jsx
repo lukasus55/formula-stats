@@ -30,7 +30,10 @@ function NavBarMobile() {
 
       <div className="navbar-mobile-center-help-div"></div>
 
-      {menuExpanded ? <NavbarList /> : ""}
+      <div className="navbar-mobile-list" onClick={handleMenuExpandButton}>
+        {menuExpanded ? <NavbarList /> : ""}
+      </div>
+      
     </>
   );
 }
