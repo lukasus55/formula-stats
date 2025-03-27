@@ -20,6 +20,7 @@ function App() {
     // Default to system preference
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     document.documentElement.classList.add(prefersDark ? 'dark' : 'light');
+    localStorage.setItem('theme', prefersDark ? 'dark' : 'light');
   }
   
   return (
