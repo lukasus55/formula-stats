@@ -284,7 +284,7 @@ function DriversInfo( {driverId} ) {
                 <li> <span className="drivers-bold"> {driver.totalRacePoints} </span>&nbsp;race points </li>
                 <li> <span className="drivers-bold"> {driver.totalSprintPoints} </span>&nbsp;sprint points </li>
                 <li> </li>
-                <li> Avg. race position:&nbsp;<span className="drivers-bold">{(parseFloat(driver.totalRacePositions)/totalFinishedRaces).toFixed(2)}</span></li>
+                <li> Avg. race position:&nbsp;<span className="drivers-bold">{driver.totalRacePositions==0 ? `-` : (parseFloat(driver.totalRacePositions)/totalFinishedRaces).toFixed(2)}</span></li>
                 <li> Avg. sprint position:&nbsp;<span className="drivers-bold">{driver.totalSprintPositions==0 ? `-` : (parseFloat(driver.totalSprintPositions)/totalFinishedSprints).toFixed(2)}</span></li>
               </ul>
             </div>
