@@ -6,7 +6,6 @@ function windowSizeDefiner(){
         width: window.innerWidth,
         height: window.innerHeight,
       });
-      let [menuExpanded, setMenuExpanded] = useState(false);
     
       useEffect(() => {
         function handleWindowSizeChange() {
@@ -24,7 +23,10 @@ function windowSizeDefiner(){
 }
 
 
-const isMobileDevice = () => windowSizeDefiner() <= 768;
+function isMobileDevice () 
+{
+  return windowSizeDefiner().width <= 768;
+}
 
 const fetcher = url => axios.get(url).then(res => res.data);
 

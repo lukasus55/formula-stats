@@ -1,0 +1,95 @@
+.seasons-dropdown-container
+{
+    height: 30px;
+    width: 200px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.seasons-dropdown-current
+{
+    display: flex;
+    align-items: center;
+    background-color: var(--widget-secondary-background);
+    width: 100%;
+    height: 30px;
+    color: var(--widget-secondary-text);
+    cursor: pointer;
+    border-radius: 2pt;
+}
+  
+.seasons-dropdown-current-text
+{
+    display: flex;
+    align-items: center;
+    width: 80%;
+    padding-left: 20px;
+}
+
+.seasons-dropdown-current-expand-icon
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 100%;
+}
+
+.seasons-dropdown-box
+{
+    position: relative;
+    display: block;
+    width: 100%;
+    z-index: 10;
+}
+
+.seasons-dropdown-list
+{
+    width: 100%;
+    height: 120px;
+    background-color: var(--widget-secondary-background);
+    border: 1px solid var(--widget-light-gray);
+    overflow: auto;
+}
+
+.seasons-dropdown-list
+{
+    width: 100%;
+    padding: 0px 10px 10px 10px;
+    list-style: none;
+}
+
+.seasons-dropdown-year
+{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 25px;
+    padding: 0px 10px;
+    cursor: pointer;
+    color: var(--widget-secondary-text);
+    border-radius: 2pt;
+}
+
+.seasons-dropdown-year:hover
+{
+    background-color: var(--widget-secondary);
+}
+
+@media only screen and (max-width: 768px) 
+{
+    .seasons-dropdown-container
+    {
+        width: 100px;
+    }
+
+    .seasons-dropdown-current-text
+    {
+        width: 70%;
+    }
+
+    .seasons-dropdown-current-expand-icon
+    {
+        width: 30%;
+    }
+}

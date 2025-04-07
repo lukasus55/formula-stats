@@ -2,7 +2,7 @@ import "./DCSearchResults.css";
 import { fetcher } from "/src/components/helpers";
 import useSWR from "swr";
 import { useState, useEffect } from "react";
-import nationalities from "i18n-nationality";
+import nationalities, { isValid } from "i18n-nationality";
 import enLocale from "i18n-nationality/langs/en.json"; //slightly modified (details in README.md - i18n adjustments section)
 nationalities.registerLocale(enLocale);
 import "/node_modules/flag-icons/css/flag-icons.min.css";
@@ -47,7 +47,7 @@ function DCSearchResults({ query, searchType }) {
     const [offset, setOffset] = useState(0);
     const [drivers, setDrivers] = useState([]);
 
-    const { data, error, isLoading} = useSWR(
+    const { data, error, isLoading, isValidating} = useSWR(
         `https://api.jolpi.ca/ergast/f1/${searchType}/?offset=${offset}&limit=100`,
         fetcher,
     );
@@ -55,7 +55,7 @@ function DCSearchResults({ query, searchType }) {
     // function to process and store results
 useEffect(() => {
     if (data) {
-        if (isLoading) {
+        if (isLoading || isValidating) {
             // Apply delay only if data was fetched from network
             setAreAllLoaded(false);
             setTimeout(() => {

@@ -2,9 +2,8 @@ import { Helmet } from "react-helmet-async";
 import "./Standings.css";
 import StandingsContent from "../components/StandingsContent";
 import { useToggleState, windowSizeDefiner } from "../components/Helpers";
-import StandingsDropdown from "../components/StandingsDropdown";
+import SeasonsDropdown from "../components/SeasonsDropdown";
 import { useLocation } from "react-router-dom";
-import { ChevronDown } from 'lucide-react';
 import { useEffect } from "react";
 
 function Standings () {
@@ -27,7 +26,6 @@ function Standings () {
     }
 
     let [tableDriversMode, toggleTableDriversMode] = useToggleState(true);
-    let [dropdownExtended, toggleDropdownExtended] = useToggleState(false);
 
     useEffect(() => {
         if (searchParams[1] === "c")
@@ -35,9 +33,6 @@ function Standings () {
             toggleTableDriversMode()
         }
     },[])
-
-    const windowSize = windowSizeDefiner();
-    let isSmallDevice = windowSize.width <= 768;
 
     return (
         <>
@@ -58,25 +53,13 @@ function Standings () {
                         <div className="standings-table-header-left">
                             <div className="standings-table-header-title"> <h6> Season {season} Standings </h6></div>
                             <div className="standings-table-header-mode-buttons">
-                                <div className={`standings-table-header-mode-drivers-button ${tableDriversMode === true ? "standings-table-header-mode-button-active" : ""}`} onClick={toggleTableDriversMode}> Drivers </div>
-                                <div className={`standings-table-header-mode-teams-button ${tableDriversMode === false ? "standings-table-header-mode-button-active" : ""}`}  onClick={toggleTableDriversMode}> Teams </div>
+                                <div className={`main-toggle-button ${tableDriversMode === true ? "main-toggle-button-active" : ""}`} onClick={toggleTableDriversMode}> Drivers </div>
+                                <div className={`main-toggle-button ${tableDriversMode === false ? "main-toggle-button-active" : ""}`}  onClick={toggleTableDriversMode}> Teams </div>
                             </div>
                         </div>
 
                         <div className="standings-table-header-right">
-                            <div className="standings-table-dropdown-container">
-                                <div className="standings-table-dropdown-current" onClick={toggleDropdownExtended}>
-                                    <div className="standings-table-dropdown-current-text">
-                                        <span>{(isSmallDevice) ? (season) : (`Season ${season}`)} </span>
-                                    </div>
-                                    <div className="standings-table-dropdown-current-expand-icon">
-                                        <ChevronDown size="16"/>
-                                    </div>
-                                </div>
-                                <div className="standings-table-dropdown-box"  onClick={toggleDropdownExtended}>
-                                    {dropdownExtended && <StandingsDropdown selectedSeason={season}/>}
-                                </div>
-                            </div>
+                            <SeasonsDropdown selectedSeason={season}/>
                         </div>
                     </div>
 

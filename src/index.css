@@ -18,6 +18,7 @@
   --widget-secondary-background: #d1d1d1;
   --widget-secondary-text: #2b2b2b;
   --widget-secondary: #dbdbdb;
+  --widget-light-background: #d1d1d1;
 }
 
 :root.dark {
@@ -37,6 +38,7 @@
   --widget-secondary-background: #141416;
   --widget-secondary-text: #dbdbdb;
   --widget-secondary: #777777;
+  --widget-light-background: #2c2c30;
 }
 
 *
@@ -93,4 +95,44 @@ a {
 .widgetTextFill
 {
   fill: var(--widget-text);
+}
+
+.rotate180
+{
+  transform: rotate(180deg);
+}
+
+.main-toggle-button
+{
+    width: 75px;
+    height: 30px;
+    margin: 0px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25pt;
+    border: 1px solid var(--widget-gray);
+    cursor: pointer;
+}
+
+.main-toggle-button:hover
+{
+    opacity: 80%;
+}
+
+.main-toggle-button-active
+{
+    background-color: var(--primary);
+    border: 1px solid var(--primary);
+    color: #ffffff;
+}
+
+.main-toggle-button-wide
+{
+  width: 100px;
+}
+
+.bold
+{
+  font-weight: bold;
 }

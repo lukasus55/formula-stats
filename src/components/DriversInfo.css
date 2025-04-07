@@ -158,31 +158,6 @@
     height: 100%;
 }
 
-.drivers-results-button
-{
-    width: 75px;
-    height: 30px;
-    margin: 0px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 25pt;
-    border: 1px solid var(--widget-gray);
-    cursor: pointer;
-}
-
-.drivers-results-button:hover
-{
-    opacity: 80%;
-}
-
-.drivers-results-button-active
-{
-    background-color: var(--primary);
-    border: 1px solid var(--primary);
-    color: #ffffff;
-}
-
 .drivers-results-header-title
 {
     width: 40%;

@@ -31,6 +31,7 @@
     align-items: center;
     width: 20%;
     transition: 0.4s ease-in-out;
+    color: #ffffff;
 }
 
 .navbar-mobile-expand-button img
@@ -200,6 +201,11 @@
     font-size: 15px;
     padding-left: 5px;
     cursor: pointer;
+}
+
+.navbar-list-more-list-header-element a
+{
+    color: inherit;
 }
 
 /* The switch - the box around the slider */
