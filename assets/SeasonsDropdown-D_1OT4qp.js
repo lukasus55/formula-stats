@@ -1,0 +1,6 @@
+import{d as i,i as p,e as x,u as m,r as u,j as e}from"./index-CJv-lc15.js";/**
+ * @license lucide-react v0.479.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const w=[["path",{d:"m6 9 6 6 6-6",key:"qrunsl"}]],h=i("ChevronDown",w);function v({selectedSeason:n}){let a=new Date().getFullYear(),r=p();const t=x();let c=Array.from({length:a-1950+1},(s,l)=>a-l),[o,d]=m(!1);return u.useEffect(()=>{if(!o)return;const s=document.querySelector(`[data-season="${n}"]`);s&&s.scrollIntoView({block:"center"})},[n,!o]),e.jsxs("div",{className:"seasons-dropdown-container",children:[e.jsxs("div",{className:"seasons-dropdown-current",onClick:d,children:[e.jsx("div",{className:"seasons-dropdown-current-text",children:e.jsxs("span",{children:[r?n:`Season ${n}`," "]})}),e.jsx("div",{className:"seasons-dropdown-current-expand-icon",children:e.jsx(h,{size:"16"})})]}),e.jsx("div",{className:"seasons-dropdown-box",onClick:d,children:o&&e.jsx("div",{className:"seasons-dropdown-content",children:e.jsx("ol",{className:"seasons-dropdown-list",children:c.map(s=>e.jsx("li",{"data-season":s,className:"seasons-dropdown-year",onClick:()=>t(`?season=${s}`),children:r?s:`Season ${s}`},s))})})})]})}export{h as C,v as S};
