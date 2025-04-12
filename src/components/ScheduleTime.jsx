@@ -1,12 +1,11 @@
 import LoadingError from "./LoadingError";
-import * as moment from "moment-timezone";
+import moment from "moment-timezone";
 import tzlookup from "tz-lookup"
 
 function ScheduleTime( { race } ) {
 
   if (!race) return <div className="schedule-single-race-error"> <LoadingError /> </div>
   if (!race.time || !race?.date) return <div className="schedule-single-race-error"> No data for this session. </div>
-  console.log(race)
 
   const timeZone = localStorage.getItem("timeZone");
 
