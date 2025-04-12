@@ -13,7 +13,7 @@ function ScheduleTime( { race } ) {
     {
       name: 'First Practice', 
       time: race?.FirstPractice?.time,
-      date: race?.FirstPractice?.date
+      date: race?.FirstPractice?.date,
     },
     {
       name: 'Second Practice', 
@@ -24,6 +24,11 @@ function ScheduleTime( { race } ) {
       name: 'Third Practice', 
       time: race?.ThirdPractice?.time,
       date: race?.ThirdPractice?.date
+    },
+    {
+      name: 'Sprint Shootout', 
+      time: race?.SprintShootout?.time,
+      date: race?.SprintShootout?.date
     },
     {
       name: 'Sprint Qualifying', 
@@ -47,19 +52,28 @@ function ScheduleTime( { race } ) {
     }
   ];
 
+  const validSessions = sessions
+  .filter(session => session.time)
+  .map(session => ({
+    ...session,
+    datetime: moment.utc(`${session.date}T${session.time}`)
+  }));
+
+  // Sort sessions chronologically
+  validSessions.sort((a, b) => a.datetime - b.datetime);
+
   // Time formatin for UTC+0 time zone
   if (timeZone === "central") {
-    sessions.filter(session => session.time).forEach(session => {
+    validSessions.forEach(session => {
       session.time = session.time.slice(0, 5);
     });
   }
 
   // Adjusting dates and times for user local time zone
   else if (timeZone === "user") {
-    sessions.filter(session => session.time).forEach(session => {
-      const utcMoment = moment.utc(`${session.date}T${session.time}`);
+    validSessions.forEach(session => {
       const localTimeZone = moment.tz.guess();
-      const localMoment = utcMoment.clone().tz(localTimeZone);
+      const localMoment = session.datetime.clone().tz(localTimeZone);
       session.time = localMoment.format('HH:mm');
       session.date = localMoment.format('YYYY-MM-DD');
     });
@@ -70,10 +84,8 @@ function ScheduleTime( { race } ) {
     const long = race.Circuit.Location.long;
     const timeZoneName = tzlookup(lat, long);
 
-    sessions.filter(session => session.time).forEach(session => {
-      const utcMoment = moment.utc(`${session.date}T${session.time}`);
-      const trackTimeZone = utcMoment.clone().tz('Asia/Bahrain');
-      const trackMoment = utcMoment.clone().tz(timeZoneName);
+    validSessions.forEach(session => {
+      const trackMoment = session.datetime.clone().tz(timeZoneName);
       session.time = trackMoment.format('HH:mm');
       session.date = trackMoment.format('YYYY-MM-DD');
     });
@@ -83,7 +95,7 @@ function ScheduleTime( { race } ) {
 
   return (
     <>
-      {sessions.filter(session => session.time).map(session => (
+      {validSessions.map(session => (
         <div className="schedule-single-race-single-session" key={session.name}>
           <div className="schedule-single-session-date">
             <span className="schedule-single-session-date-day">{session.date.split("-")[2]}</span>&nbsp;
