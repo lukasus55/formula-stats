@@ -18,7 +18,7 @@ function ScheduleSingleRace( { race } ) {
   let formattedFirstPracticeDate = "";
   let formattedRaceDate = ""; 
 
-  if (firstPracticeDate) {formattedFirstPracticeDate = `${firstPracticeDate[2]}.${firstPracticeDate[1]}${isMobileDevice() ? ' ' : ' - '}`}; //formating from "YYYY-MM-DD" to "DD.MM" and adding "-" if not mobile}
+  if (firstPracticeDate) {formattedFirstPracticeDate = `${firstPracticeDate[2]}.${firstPracticeDate[1]}`}; //formating from "YYYY-MM-DD" to "DD.MM" and adding "-" if not mobile}
   if (raceDate) {formattedRaceDate = `${raceDate[2]}.${raceDate[1]}`}; //formating from "YYYY-MM-DD" to "DD.MM"
 
   let circuitCountry = race.Circuit.Location.country;
@@ -36,7 +36,7 @@ function ScheduleSingleRace( { race } ) {
               <span className={`fi fi-${circuitCountryCode} dcsearch-results-flag`}/>
               &nbsp;{ isMobileDevice() ? race.raceName.split(" ")[0]+" GP" : race.raceName} 
             </div>
-            <div className="schedule-single-race-date"> {formattedFirstPracticeDate}{formattedRaceDate} </div>
+            <div className="schedule-single-race-date"> {formattedFirstPracticeDate}{isMobileDevice() ? <br /> : ' - '}{formattedRaceDate} </div>
             <div className="schedule-single-race-expand-container" onClick={toggleRaceDetailsExpanded}> 
               <ChevronDown size="16" className={`schedule-single-race-expand-button ` + (raceDetailsExpanded && 'rotate180')}/> 
             </div>
