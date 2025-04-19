@@ -1,6 +1,6 @@
 import { ChevronDown } from 'lucide-react';
 import lookup from 'country-code-lookup';
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import "/libraries/flag-icons/css/flag-icons.min.css";
 import { useToggleState } from './Helpers';
 import LoadingError from './LoadingError';
 import ScheduleTime from './ScheduleTime';

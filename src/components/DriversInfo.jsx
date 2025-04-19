@@ -4,8 +4,8 @@ import { fetcher } from "./Helpers";
 import LoadingMini from "../pages/LoadingMini";
 import { useState, useEffect } from "react";
 import nationalities from "i18n-nationality";
-import enLocale from "i18n-nationality/langs/en.json"; //slightly modified (details in README.md - i18n adjustments section)
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import enLocale from "/libraries/flags/langs/en.json";
+import "/libraries/flag-icons/css/flag-icons.min.css";
 import { Crown } from 'lucide-react';
 import { Link } from "react-router-dom";
 import DCGraph from "./DCGraph";

@@ -2,10 +2,10 @@ import "./DCSearchResults.css";
 import { fetcher } from "/src/components/helpers";
 import useSWR from "swr";
 import { useState, useEffect } from "react";
-import nationalities, { isValid } from "i18n-nationality";
-import enLocale from "i18n-nationality/langs/en.json"; //slightly modified (details in README.md - i18n adjustments section)
+import nationalities from "i18n-nationality";
+import enLocale from "/libraries/flags/langs/en.json";
 nationalities.registerLocale(enLocale);
-import "/node_modules/flag-icons/css/flag-icons.min.css";
+import "/libraries/flag-icons/css/flag-icons.min.css";
 import LoadingMini from '../pages/LoadingMini';
 import { Link } from "react-router-dom";
 import LoadingError from "./LoadingError";
