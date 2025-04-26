@@ -27,7 +27,7 @@ function StandingsDrivers({results}) {
             </td>
             <td className="standings-drivers-list-constructor">
               <Link to={`/constructor?id=${driver.Constructors[0].constructorId}`}>
-                {driver.Constructors[0].name}
+                {driver.Constructors[driver.Constructors.length-1].name}
               </Link>
             </td>
             <td className="standings-drivers-list-points">{driver.points}</td>
