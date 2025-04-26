@@ -4,11 +4,12 @@ import useSWR from "swr";
 import { useState, useEffect } from "react";
 import nationalities from "i18n-nationality";
 import enLocale from "/libraries/flags/langs/en.json";
-nationalities.registerLocale(enLocale);
 import "/libraries/flag-icons/css/flag-icons.min.css";
 import LoadingMini from '../pages/LoadingMini';
 import { Link } from "react-router-dom";
 import LoadingError from "./LoadingError";
+
+nationalities.registerLocale(enLocale);
 
 // All variable are called driver, prevDrivers but DCSearchResults is for both drivers and constructors searching.
 

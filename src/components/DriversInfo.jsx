@@ -11,9 +11,13 @@ import { Link } from "react-router-dom";
 import DCGraph from "./DCGraph";
 import { Helmet } from "react-helmet-async";
 import LoadingError from "./LoadingError";
+import DriversInfoLiveStandings from "./DriversInfoLive";
+
 nationalities.registerLocale(enLocale);
 
 function DriversInfo( {driverId} ) {
+
+    const currentYear = new Date().getFullYear();
   
     let [driver, setDriver] = useState({
       championshipsList: [],
@@ -234,107 +238,117 @@ function DriversInfo( {driverId} ) {
     return(
       <>
         {(driver && driver.givenName) ? (
-        <div className="drivers-info-container">
-          
-          <Helmet>
-            <title>{`F1 Statistics - ${driver.givenName} ${driver.familyName}`}</title>
-            <meta name="description" content={`F1 Stats - ${driver.givenName} ${driver.familyName}`} />
-          </Helmet>
+        <>
+          <div className="drivers-info-container">
+            
+            <Helmet>
+              <title>{`F1 Statistics - ${driver.givenName} ${driver.familyName}`}</title>
+              <meta name="description" content={`F1 Stats - ${driver.givenName} ${driver.familyName}`} />
+            </Helmet>
 
-          <div className="title"> <span className={`fi fi-${driver.countryCode ? (driver.countryCode.toLowerCase()) : ("99")} dcsearch-results-flag`}></span>&nbsp;{driver.givenName} {driver.familyName} </div>
-          
-          <div className="badges">
-          {driver.championshipsList?.map((championship, index) => (
-            <Link key={"link"+index} to={`/standings?season=${championship.season}`} className="drivers-info-champion-badge" title={`${championship.season} CHAMPION`}>
-              <Crown className="widgetTextFill" size="15px"/>&nbsp;{championship.season}
-            </Link>
-          ))}
-          </div>
-
-          <div className="details">
-            <div className="title"> <h5> DETAILS </h5> </div>
-            <div className="list">
-              <ul>
-                <li> Born:&nbsp;<span className="drivers-bold"> {driver.dateOfBirth || "Uknown"} </span> </li>
-                <li> 
-                  First GP:&nbsp;
-                  <span className="drivers-bold"> 
-                    {
-                      driver.firstRace && (<Link key={"firstRace"} target="blank" to={driver.firstRace.wikipedia} title={driver.firstRace.name}> {`${driver.firstRace.country} ${driver.firstRace.season}`} </Link>)
-                    }
-                  </span> 
-                </li>
-                <li> 
-                  Last GP:&nbsp; 
-                  <span className="drivers-bold">
-                    {
-                      driver.lastRace && (<Link key={"firstRace"} target="blank" to={driver.lastRace.wikipedia} title={driver.lastRace.name}> {`${driver.lastRace.country} ${driver.lastRace.season}`} </Link>)
-                    }
-                  </span>
-                </li>
-
-                <li> </li>
-                
-                <li> <span className="drivers-bold"> {driver.totalRaces} </span>&nbsp;Grand Prix </li>
-                <li> <span className="drivers-bold"> {driver.racePositionsList[1] || "0"} </span>&nbsp;GP wins </li>
-                <li> <span className="drivers-bold"> {driver.gridList[1] || "0"} </span>&nbsp;pole positions </li>
-                <li> <span className="drivers-bold"> {driver.sprintPositionsList[1] || "0"} </span>&nbsp;sprint wins </li>
-                <li> </li>
-                <li> <span className="drivers-bold"> {(parseFloat(driver.totalRacePoints)+parseFloat(driver.totalSprintPoints))} </span>&nbsp;total points </li>
-                <li> <span className="drivers-bold"> {driver.totalRacePoints} </span>&nbsp;race points </li>
-                <li> <span className="drivers-bold"> {driver.totalSprintPoints} </span>&nbsp;sprint points </li>
-                <li> </li>
-                <li> Avg. race position:&nbsp;<span className="drivers-bold">{driver.totalRacePositions==0 ? `-` : (parseFloat(driver.totalRacePositions)/totalFinishedRaces).toFixed(2)}</span></li>
-                <li> Avg. sprint position:&nbsp;<span className="drivers-bold">{driver.totalSprintPositions==0 ? `-` : (parseFloat(driver.totalSprintPositions)/totalFinishedSprints).toFixed(2)}</span></li>
-              </ul>
+            <div className="title"> <span className={`fi fi-${driver.countryCode ? (driver.countryCode.toLowerCase()) : ("99")} dcsearch-results-flag`}></span>&nbsp;{driver.givenName} {driver.familyName} </div>
+            
+            <div className="badges">
+            {driver.championshipsList?.map((championship, index) => (
+              <Link key={"link"+index} to={`/standings?season=${championship.season}`} className="drivers-info-champion-badge" title={`${championship.season} CHAMPION`}>
+                <Crown className="widgetTextFill" size="15px"/>&nbsp;{championship.season}
+              </Link>
+            ))}
             </div>
-          </div>
 
-          <div className="results">
-            <div className="header">
-              <div className="drivers-results-header-buttons">
-                <div className={`main-toggle-button ${graphMode=='Races' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Races")}>Races</div>
-                <div className={`main-toggle-button ${graphMode=='Qualis' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Qualis")}>Grid</div>
-                <div className={`main-toggle-button ${graphMode=='Sprints' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Sprints")}>Sprints</div>
-              </div>
-              <div className="drivers-results-header-title">
-              <div className="drivers-results-header-title-top">{graphMode!='Qualis' ? `${graphMode} results` : `Grid positions`} </div>
-              <div className="drivers-results-header-title-bottom drivers-gray">{graphMode!='Qualis' ? `Only finished ${graphMode.toLowerCase()}` : 'Races starting positions'} </div>
-              </div>
-            </div>
-            <div className="graph">
-              <DCGraph driver={driver} graphMode={graphMode}/>
-            </div>
-          </div>
-
-          <div className="teams">
-            <div className="title"> Teams history </div>
-            <div className="list">
-              <ol>
-                {mergedTeamsArray.map((team) => (
-                  <li key={'Team '+team.constructorId}> 
-                    <span className="drivers-team-name" style={{ whiteSpace: "nowrap" }}>
-                      <Link to={`/constructors?id=${team.constructorId}`}>
-                        <span className="drivers-bold">{team.name}</span>:
-                      </Link>
-                    </span>
-                    <span className="drivers-seasons-list drivers-gray"> 
-                      {team?.seasonsList?.map((seasonNumber) => (
-                          <span className="drivers-team-season" key={'Team '+team.constructorId + ' SeasonLink '+ seasonNumber}>
-                            &nbsp;
-                            <Link to={`/standings?season=${seasonNumber}_c`}>
-                              {seasonNumber}
-                            </Link>
-                            {team.seasonsList[team.seasonsList.length-1]===seasonNumber ? "" : ","}
-                        </span>
-                      ))} 
+            <div className="details">
+              <div className="title"> <h5> DETAILS </h5> </div>
+              <div className="list">
+                <ul>
+                  <li> Born:&nbsp;<span className="drivers-bold"> {driver.dateOfBirth || "Uknown"} </span> </li>
+                  <li> 
+                    First GP:&nbsp;
+                    <span className="drivers-bold"> 
+                      {
+                        driver.firstRace && (<Link key={"firstRace"} target="blank" to={driver.firstRace.wikipedia} title={driver.firstRace.name}> {`${driver.firstRace.country} ${driver.firstRace.season}`} </Link>)
+                      }
+                    </span> 
+                  </li>
+                  <li> 
+                    Last GP:&nbsp; 
+                    <span className="drivers-bold">
+                      {
+                        driver.lastRace && (<Link key={"firstRace"} target="blank" to={driver.lastRace.wikipedia} title={driver.lastRace.name}> {`${driver.lastRace.country} ${driver.lastRace.season}`} </Link>)
+                      }
                     </span>
                   </li>
-                ))}
-              </ol>
+
+                  <li> </li>
+                  
+                  <li> <span className="drivers-bold"> {driver.totalRaces} </span>&nbsp;Grand Prix </li>
+                  <li> <span className="drivers-bold"> {driver.racePositionsList[1] || "0"} </span>&nbsp;GP wins </li>
+                  <li> <span className="drivers-bold"> {driver.gridList[1] || "0"} </span>&nbsp;pole positions </li>
+                  <li> <span className="drivers-bold"> {driver.sprintPositionsList[1] || "0"} </span>&nbsp;sprint wins </li>
+                  <li> </li>
+                  <li> <span className="drivers-bold"> {(parseFloat(driver.totalRacePoints)+parseFloat(driver.totalSprintPoints))} </span>&nbsp;total points </li>
+                  <li> <span className="drivers-bold"> {driver.totalRacePoints} </span>&nbsp;race points </li>
+                  <li> <span className="drivers-bold"> {driver.totalSprintPoints} </span>&nbsp;sprint points </li>
+                  <li> </li>
+                  <li> Avg. race position:&nbsp;<span className="drivers-bold">{driver.totalRacePositions==0 ? `-` : (parseFloat(driver.totalRacePositions)/totalFinishedRaces).toFixed(2)}</span></li>
+                  <li> Avg. sprint position:&nbsp;<span className="drivers-bold">{driver.totalSprintPositions==0 ? `-` : (parseFloat(driver.totalSprintPositions)/totalFinishedSprints).toFixed(2)}</span></li>
+                </ul>
+              </div>
             </div>
+
+            <div className="results">
+              <div className="header">
+                <div className="drivers-results-header-buttons">
+                  <div className={`main-toggle-button ${graphMode=='Races' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Races")}>Races</div>
+                  <div className={`main-toggle-button ${graphMode=='Qualis' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Qualis")}>Grid</div>
+                  <div className={`main-toggle-button ${graphMode=='Sprints' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Sprints")}>Sprints</div>
+                </div>
+                <div className="drivers-results-header-title">
+                <div className="drivers-results-header-title-top">{graphMode!='Qualis' ? `${graphMode} results` : `Grid positions`} </div>
+                <div className="drivers-results-header-title-bottom drivers-gray">{graphMode!='Qualis' ? `Only finished ${graphMode.toLowerCase()}` : 'Races starting positions'} </div>
+                </div>
+              </div>
+              <div className="graph">
+                <DCGraph driver={driver} graphMode={graphMode}/>
+              </div>
+            </div>
+
+            <div className="teams">
+              <div className="title"> Teams history </div>
+              <div className="list">
+                <ol>
+                  {mergedTeamsArray.map((team) => (
+                    <li key={'Team '+team.constructorId}> 
+                      <span className="drivers-team-name" style={{ whiteSpace: "nowrap" }}>
+                        <Link to={`/constructors?id=${team.constructorId}`}>
+                          <span className="drivers-bold">{team.name}</span>:
+                        </Link>
+                      </span>
+                      <span className="drivers-seasons-list drivers-gray"> 
+                        {team?.seasonsList?.map((seasonNumber) => (
+                            <span className="drivers-team-season" key={'Team '+team.constructorId + ' SeasonLink '+ seasonNumber}>
+                              &nbsp;
+                              <Link to={`/standings?season=${seasonNumber}_c`}>
+                                {seasonNumber}
+                              </Link>
+                              {team.seasonsList[team.seasonsList.length-1]===seasonNumber ? "" : ","}
+                          </span>
+                        ))} 
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>     
+
           </div>
-        </div>
+          { driver.lastRace.season === currentYear.toString() &&
+            <div className="drivers-info-live">
+              <div className="standings"> 
+                <DriversInfoLiveStandings driverId={driverId}/>
+              </div>
+            </div>
+          }
+        </>
         ) : <div className="drivers-info-loading-error">Failed to load.</div>}
       </>
     );
