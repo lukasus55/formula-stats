@@ -298,9 +298,15 @@ function DriversInfo( {driverId} ) {
             <div className="results">
               <div className="header">
                 <div className="drivers-results-header-buttons">
-                  <div className={`main-toggle-button ${graphMode=='Races' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Races")}>Races</div>
-                  <div className={`main-toggle-button ${graphMode=='Qualis' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Qualis")}>Grid</div>
-                  <div className={`main-toggle-button ${graphMode=='Sprints' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Sprints")}>Sprints</div>
+                  <div className="drivers-results-header-buttons-single-button">
+                    <div className={`main-toggle-button ${graphMode=='Races' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Races")}>Races</div>
+                  </div>
+                  <div className="drivers-results-header-buttons-single-button">
+                    <div className={`main-toggle-button ${graphMode=='Qualis' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Qualis")}>Grid</div>
+                  </div>
+                  <div className="drivers-results-header-buttons-single-button">
+                    <div className={`main-toggle-button ${graphMode=='Sprints' ? 'main-toggle-button-active' : ''}`} onClick={() => setGraphMode("Sprints")}>Sprints</div>
+                  </div>
                 </div>
                 <div className="drivers-results-header-title">
                 <div className="drivers-results-header-title-top">{graphMode!='Qualis' ? `${graphMode} results` : `Grid positions`} </div>
